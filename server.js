@@ -107,6 +107,8 @@ app.get("/GetProfile", (req, res) => {
 
 })
 
+
+
 app.post("/logout", (req, res) => {
     console.log("Logout")
     res.status(200).json({ message: "Logout" })

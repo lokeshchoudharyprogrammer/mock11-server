@@ -81,57 +81,58 @@ app.post("/login", async (req, res) => {
     }
 })
 
-app.get("/GetProfile", (req, res) => {
-    let tokens = req.headers.authorization;
-    try {
+// app.get("/GetProfile", (req, res) => {
+//     let tokens = req.headers.authorization;
+//     try {
 
-        let decodeToken = jwt.verify(token, "shhhhh");
+//         let decodeToken = jwt.verify(token, "shhhhh");
 
-        User.findById(tokens.userID, tokens.email, (err, user) => {
-            if (err) {
-                console.log("err")
-                res.status(500).json({ error: "Failed" })
-            } else if (!user) {
-                res.status(400).json({ error: "user not found" })
+//         User.findById(tokens.userID, tokens.email, (err, user) => {
+//             if (err) {
+//                 console.log("err")
+//                 res.status(500).json({ error: "Failed" })
+//             } else if (!user) {
+//                 res.status(400).json({ error: "user not found" })
 
-            } else {
-                res.status(200).json({ user })
-            }
-        })
-    } catch (error) {
+//             } else {
+//                 res.status(200).json({ user })
+//             }
+//         })
+//     } catch (error) {
 
-        console.log("Invalid Data")
-        res.status(401).json({ "error": "Token Invalid" })
-    }
-
-
-})
+//         console.log("Invalid Data")
+//         res.status(401).json({ "error": "Token Invalid" })
+//     }
 
 
-
-app.post("/logout", (req, res) => {
-    console.log("Logout")
-    res.status(200).json({ message: "Logout" })
-})
+// })
 
 
-app.post("/calculate", (req, res) => {
 
-    const { loanAmout, intrestrate, tenure } = req.body;
+// app.post("/logout", (req, res) => {
+//     console.log("Logout")
+//     res.status(200).json({ message: "Logout" })
+// })
 
-    // EMI:E = P x r x ( 1 + r )n / ( ( 1 + r )n - 1 ) 
-    // EMI = ₹1,00,000 * 0.011667* (1 + 0.011667)36 / ((1 + 0.011667)36 - 1) = ₹3418.
-    const month = intrestrate / 100 / 12;
-    const nrate = loanAmout * month * Math.pow(1 + month, tenure);
-    const denom = Math.pow(1 + month, tenure) - 1
-    const emi = nrate / denom;
 
-    const inpay = emi * tenure - loanAmout;
-    const totalPay = emi * tenure;
+// app.post("/calculate", (req, res) => {
 
-    res.status(200).json({ emi, inpay, totalPay })
-    // const Mon
-})
+//     const { loanAmout, intrestrate, tenure } = req.body;
+
+//     // EMI:E = P x r x ( 1 + r )n / ( ( 1 + r )n - 1 ) 
+//     // EMI = ₹1,00,000 * 0.011667* (1 + 0.011667)36 / ((1 + 0.011667)36 - 1) = ₹3418.
+//     const month = intrestrate / 100 / 12;
+//     const nrate = loanAmout * month * Math.pow(1 + month, tenure);
+//     const denom = Math.pow(1 + month, tenure) - 1
+//     const emi = nrate / denom;
+
+//     const inpay = emi * tenure - loanAmout;
+//     const totalPay = emi * tenure;
+
+//     res.status(200).json({ emi, inpay, totalPay })
+//     // const Mon
+// })
+
 app.listen(4000, async () => {
     try {
         // Connect the client to the server	(optional starting in v4.7)
